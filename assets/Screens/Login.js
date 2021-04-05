@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, TextInput } from 'react-native';
+import { Image, StyleSheet, TextInput, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import AppView from '../Componants/AppView'
@@ -10,8 +10,10 @@ function Login() {
         <AppView style={styles.screen}>
 
             <Image source={require('../images/globe.png')} style={styles.image} />
-            <MaterialCommunityIcons name="email" size={20} color={AppColors.Blue} />
-            <TextInput placeholder="Email" style={styles.line}></TextInput>
+            <View style={styles.underline}>
+                <MaterialCommunityIcons name="email" size={20} color={AppColors.Blue} style={{ padding: 0 }} />
+                <TextInput placeholder="Email" style={styles.input}></TextInput>
+            </View>
 
 
 
@@ -28,13 +30,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: AppColors.Green
     },
-    line: {
+    input: {
         width: 200,
-        borderBottomWidth: 2,
-        borderBottomColor: AppColors.Orange,
         textAlign: 'center',
         color: AppColors.Yellow,
         fontSize: 20,
+    },
+    underline: {
+        borderBottomWidth: 2,
+        borderBottomColor: AppColors.Orange,
+        flexDirection: 'row',
     }
 })
 
