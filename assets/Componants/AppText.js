@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text , StyleSheet} from 'react-native';
 
+
 function AppText({children, style}) {
 
-
-    return (
+      return (
         <Text style={styles.text, style}>
             {children}
         </Text>
