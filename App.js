@@ -1,10 +1,11 @@
 import React from 'react';
- 
-import Login from './assets/Screens/Login.js'
+
+import MyWishList from './assets/Screens/myWishList'
 
 export default function App() {
   return (
-    <Login/>
+
+    <MyWishList />
 
 
   );

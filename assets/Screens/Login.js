@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Image, StyleSheet, TextInput, View, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import {useFonts, VarelaRound_400Regular} from '@expo-google-fonts/varela-round'
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
 
 
 import AppView from '../Componants/AppView'
@@ -10,8 +10,8 @@ import AppText from '../Componants/AppText'
 
 function Login() {
 
-   const [email, setEmail] = useState(null)
-   const [password, setPassword] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [password, setPassword] = useState(null)
 
     // I haven't figured out a better way to use a custom font, if I try to do this same trick with AppText it doesn't work 
 
@@ -19,7 +19,7 @@ function Login() {
         VarelaRound_400Regular,
     })
 
-    if(!fonts_loaded){
+    if (!fonts_loaded) {
         return <Text> App Loading </Text>
     }
 
@@ -32,7 +32,7 @@ function Login() {
 
 
             <View style={styles.underline}>
-                <MaterialCommunityIcons name="email" size={20} color={AppColors.Blue} style={{ paddingTop: 30 }}/>
+                <MaterialCommunityIcons name="email" size={20} color={AppColors.Blue} style={{ paddingTop: 30 }} />
                 <TextInput placeholder="Email" style={styles.input} value={email} onChangeText={setEmail} keyboardType="email-address" textContentType="emailAddress" ></TextInput>
             </View>
             <View style={styles.underline}>
@@ -45,7 +45,7 @@ function Login() {
             <AppText style={styles.password}>Forgot Password?</AppText>
 
             <AppText style={styles.registration}>Don't have an account yet?</AppText>
-            <AppText style={[styles.password, {fontSize: 15, paddingTop: 5}]}>Sign Up</AppText>
+            <AppText style={[styles.password, { fontSize: 15, paddingTop: 5 }]}>Sign Up</AppText>
 
 
 
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
         color: AppColors.Yellow,
         fontSize: 20,
         fontFamily: 'VarelaRound_400Regular',
-        padding: 10, 
-        paddingTop: 30 
+        padding: 10,
+        paddingTop: 30
 
     },
     underline: {
@@ -78,15 +78,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     password: {
-        color: AppColors.DarkRed, 
+        color: AppColors.DarkRed,
         fontSize: 18,
         fontFamily: 'VarelaRound_400Regular',
         paddingTop: 25
-    }, 
+    },
     registration: {
-        color: AppColors.Yellow, 
+        color: AppColors.Yellow,
         fontSize: 15,
-        paddingTop: 100,
+        paddingTop: 50,
     }
 })
 
