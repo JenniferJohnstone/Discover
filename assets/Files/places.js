@@ -1,5 +1,6 @@
 const placeList = [
     {
+        id: '0',
         title: 'Santorini Beach',
         image: require('../images/santoriniBeach.jpg'),
         category: 'Place to visit',
@@ -8,6 +9,7 @@ const placeList = [
         Address: '123 Fake Street, Newington, NSW'
     },
     {
+        id: '1',
         title: "Ramsay's kitchen",
         image: require('../images/ramsaysKitchen.jpg'),
         category: 'Place to eat',
@@ -16,6 +18,7 @@ const placeList = [
         Address: '123 Fake Street, Newington, NSW'
     },
     {
+        id: '2',
         title: "Haunted Hotel",
         image: require('../images/haunted.jpg'),
         category: 'Place to stay',
@@ -24,6 +27,7 @@ const placeList = [
         Address: '123 Fake Street, Newington, NSW'
     },
     {
+        id: '3',
         title: "Camel Riding",
         image: require('../images/camel.jpg'),
         category: 'Thing to do',

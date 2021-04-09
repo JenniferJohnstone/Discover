@@ -1,19 +1,23 @@
-import React from 'react';
-import { StyleSheet, Image, View, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Image, View, FlatList, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import AppView from '../Componants/AppView'
 import appColors from '../Config/appColors';
 import AppText from '../Componants/AppText'
 import PlaceList from '../Files/places'
-
-
+import Seperator from '../Componants/Seperator'
 
 function myWishList() {
 
-    const placeList = PlaceList
+    const [placeList, setPlaceList] = useState(PlaceList)
+
+    const deleteItem = (item) => {
+        const newList = placeList.filter(placeList => placeList.id !== item.id)
+        setPlaceList(newList)
+    }
 
     let [fonts_loaded] = useFonts({
         VarelaRound_400Regular,
@@ -23,14 +27,28 @@ function myWishList() {
         return <AppText> App Loading </AppText>
     }
 
+    // I tried seperating this componant into a seperate file but it didn't quite work, hope it doesn't make things look too messy
     const renderItem = ({ item }) => {
-        return (<AppView style={styles.listItem}>
-            <Image source={item.image} style={styles.listImage} />
-            <AppView style={styles.bio}>
-                <AppText style={styles.listTitle}>{item.title}</AppText>
-                <AppText style={styles.tagline}>{item.category} - {item.country}</AppText>
-            </AppView>
-        </AppView>)
+
+        return (
+            <Swipeable renderRightActions={() => {
+                return (
+                    <TouchableOpacity style={styles.delete} onPress={() => deleteItem(item)}>
+                        <MaterialCommunityIcons name="delete" size={50} color={appColors.Blue} />
+                    </TouchableOpacity>
+                )
+            }}>
+
+                <TouchableOpacity style={styles.listItem} onPress={() => setPlaceList(PlaceList)}>
+                    <Image source={item.image} style={styles.listImage} />
+                    <View style={styles.bio}>
+                        <AppText style={styles.listTitle}>{item.title}</AppText>
+                        <AppText style={styles.tagline}>{item.category}</AppText>
+                        <AppText style={styles.tagline, { color: appColors.DarkRed }}>{item.country}</AppText>
+                    </View>
+                </TouchableOpacity>
+            </Swipeable>
+        )
     }
 
 
@@ -48,7 +66,7 @@ function myWishList() {
             </AppView>
 
             <AppView style={styles.list}>
-                <FlatList data={placeList} renderItem={renderItem} />
+                <FlatList data={placeList} renderItem={renderItem} keyExtractor={(item) => item.id} ItemSeparatorComponent={Seperator} />
             </AppView>
 
             <AppView style={styles.menuBar}>
@@ -62,7 +80,8 @@ const styles = StyleSheet.create({
     flexbox: {
         flexDirection: 'column',
         backgroundColor: appColors.Green,
-        flex: 6
+        flex: 6,
+        paddingTop: 30
     },
     image: {
         width: 70,
@@ -84,8 +103,8 @@ const styles = StyleSheet.create({
     },
     logout: {
         fontSize: 15,
-        marginRight: 10,
-        color: appColors.Yellow
+        paddingLeft: 45,
+        color: appColors.Yellow,
     },
     logoutContainer: {
         paddingTop: 0,
@@ -97,9 +116,10 @@ const styles = StyleSheet.create({
         paddingTop: 0,
         backgroundColor: appColors.Green,
         flexDirection: 'column',
-        flex: 4,
+        flex: 5,
         paddingLeft: 10,
-        justifyContent: 'space-between'
+        alignItems: 'center'
+
     },
     listImage: {
         width: 150,
@@ -122,12 +142,12 @@ const styles = StyleSheet.create({
         paddingTop: 10
     },
     bio: {
-        paddingTop: 0,
-        flexDirection: 'column',
         paddingLeft: 10,
+        overflow: 'scroll'
     },
     menuBar: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        paddingTop: 0,
     }
 
 })
