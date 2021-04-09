@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, TextInput, View, Text } from 'react-native';
+import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
 import { Formik } from 'formik';
@@ -11,7 +11,7 @@ import AppText from '../Componants/AppText'
 import AppButton from '../Componants/AppButton'
 import Users from '../Files/users'
 
-function Login() {
+function Login({ navigation }) {
 
     // I haven't figured out a better way to use a custom font, if I try to do this same trick with AppText it doesn't work 
 
@@ -32,16 +32,14 @@ function Login() {
 
     const users = Users
 
-    const validateUser = ({ email, password }) => {
-        const yes = users.filter(user => user.email == email)
-        console.log(users)
-        console.log(yes)
+    const validateUser = (email, password) => {
 
         return (
             users.filter(user => user.email == email && user.password == password).length > 0
             //returns true or false
         )
     }
+
 
     return (
         <AppView style={styles.screen}>
@@ -51,26 +49,28 @@ function Login() {
 
             <Formik
                 initialValues={{ email: '', password: '' }}
-                onSubmit={values => {
-                    console.log(values)
+                onSubmit={(values, { resetForm }) => {
                     if (validateUser(values.email, values.password)) {
-                        console.log(values)
+                        navigation.navigate('WishList', { email: values.email })
+                    } else {
+                        resetForm();
+                        alert('Invalid user')
                     }
                 }}
                 validationSchema={schema}
             >
 
-                {({ handleChange, handleSubmit, errors }) => (
+                {({ handleChange, handleSubmit, errors, values }) => (
                     <>
 
                         <View style={styles.underline}>
                             <MaterialCommunityIcons name="email" size={20} color={AppColors.Blue} style={{ paddingTop: 30 }} />
-                            <TextInput placeholder="Email" style={styles.input} onChangeText={handleChange("email")} keyboardType="email-address" textContentType="emailAddress" ></TextInput>
+                            <TextInput placeholder="Email" style={styles.input} value={values.email} onChangeText={handleChange("email")} keyboardType="email-address" textContentType="emailAddress" ></TextInput>
                         </View>
                         <AppText>{errors.email}</AppText>
                         <View style={styles.underline}>
                             <MaterialCommunityIcons name="lock" size={20} color={AppColors.Blue} style={{ paddingTop: 30 }} />
-                            <TextInput placeholder="Password" style={styles.input} onChangeText={handleChange("password")} textContentType="password"></TextInput>
+                            <TextInput placeholder="Password" style={styles.input} value={values.password} onChangeText={handleChange("password")} textContentType="password"></TextInput>
                         </View>
                         <AppText>{errors.password}</AppText>
 
@@ -87,7 +87,7 @@ function Login() {
             <AppText style={styles.password}>Forgot Password?</AppText>
 
             <AppText style={styles.registration}>Don't have an account yet?</AppText>
-            <AppText style={[styles.password, { fontSize: 15, paddingTop: 5 }]}>Sign Up</AppText>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}><AppText style={[styles.password, { fontSize: 15, paddingTop: 5 }]}>Sign Up</AppText></TouchableOpacity>
 
 
 

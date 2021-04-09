@@ -1,23 +1,24 @@
 import React from 'react';
-import { StyleSheet , Image, Text} from 'react-native';
+import { StyleSheet, Image, Text } from 'react-native';
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
+
 
 import AppView from '../Componants/AppView.js'
 import AppColors from '../Config/appColors.js'
 import AppText from '../Componants/AppText'
 import AppButton from '../Componants/AppButton'
 
-import {useFonts, VarelaRound_400Regular} from '@expo-google-fonts/varela-round'
-
- 
 
 
-function Welcome() {
+
+
+function Welcome({ navigation }) {
 
     let [fonts_loaded] = useFonts({
         VarelaRound_400Regular,
     })
 
-    if(!fonts_loaded){
+    if (!fonts_loaded) {
         return <Text> App Loading </Text>
     }
 
@@ -30,16 +31,11 @@ function Welcome() {
 
             <AppText style={styles.subtitle}>All the things you'd want to do in one place.</AppText>
 
-            <AppView style={styles.flexBox}>
 
-            <AppButton style={styles.button} title="Login" BackgroundColor = "Orange" color="Blue" size={20} onPress={() => console.log('boop')} />            
-            <AppButton style={styles.button} title="Register" BackgroundColor = "Red" color="Yellow" size={20} onPress={() => console.log('boop')} />
-
-
-            </AppView>
+            <AppButton style={styles.button} title="Login" BackgroundColor="Orange" color="Blue" size={20} onPress={() => navigation.navigate("Login")} />
+            <AppButton style={styles.button} title="Register" BackgroundColor="Red" color="Yellow" size={20} onPress={() => navigation.navigate("Register")} />
 
 
-            
         </AppView>
     );
 }
@@ -47,31 +43,30 @@ function Welcome() {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: AppColors.Green, 
-        alignItems: 'center'
-    }, 
-    image : {
-        width: 300, 
+        backgroundColor: AppColors.Green,
+        alignItems: 'center',
+        paddingTop: 50
+    },
+    image: {
+        width: 300,
         height: 300
     },
     title: {
         fontSize: 50,
-        color: AppColors.Yellow, 
+        color: AppColors.Yellow,
         fontFamily: 'VarelaRound_400Regular'
     },
     subtitle: {
         fontSize: 20,
-        width: 300, 
-        textAlign: 'center', 
-        color: AppColors.Yellow, 
-        fontFamily: 'VarelaRound_400Regular'
-    }, 
-    flexBox: {
-        flexDirection: 'column',
-    }, 
-    button : {
-        height: 80, 
-        width: 300, 
+        width: 300,
+        textAlign: 'center',
+        color: AppColors.Yellow,
+        fontFamily: 'VarelaRound_400Regular',
+        paddingBottom: 20
+    },
+    button: {
+        height: 80,
+        width: 300,
     }
 
 })

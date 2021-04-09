@@ -9,8 +9,11 @@ import appColors from '../Config/appColors';
 import AppText from '../Componants/AppText'
 import PlaceList from '../Files/places'
 import Seperator from '../Componants/Seperator'
+import Users from '../Files/users'
 
-function myWishList() {
+function myWishList({ route, navigation }) {
+
+    var user = Users.find(user => user.email == route.params.email)
 
     const [placeList, setPlaceList] = useState(PlaceList)
 
@@ -56,12 +59,15 @@ function myWishList() {
         <View style={styles.flexbox}>
             <AppView style={styles.container}>
                 <Image source={require('../images/globe.png')} style={styles.image} />
-                <AppText style={styles.title}>My Wish List</AppText>
+                <AppText style={styles.title}>{user.name}'s Wish List</AppText>
 
                 <AppView style={styles.logoutContainer}>
-                    <MaterialCommunityIcons name="exit-to-app" size={50} color={appColors.Blue} style={styles.icon} />
-                    <AppText style={styles.logout}>Logout</AppText>
+                    <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
+                        <MaterialCommunityIcons name="exit-to-app" size={50} color={appColors.Blue} style={styles.icon} />
+                        <AppText style={styles.logout}>Logout</AppText>
+                    </TouchableOpacity>
                 </AppView>
+
 
             </AppView>
 
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
     title: {
         color: appColors.Yellow,
         paddingTop: 25,
-        fontSize: 30,
+        fontSize: 20,
         fontFamily: 'VarelaRound_400Regular',
     },
     icon: {
@@ -103,8 +109,9 @@ const styles = StyleSheet.create({
     },
     logout: {
         fontSize: 15,
-        paddingLeft: 45,
         color: appColors.Yellow,
+        textAlign: 'right',
+        paddingRight: 10
     },
     logoutContainer: {
         paddingTop: 0,
