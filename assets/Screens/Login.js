@@ -51,7 +51,12 @@ function Login({ navigation }) {
                 initialValues={{ email: '', password: '' }}
                 onSubmit={(values, { resetForm }) => {
                     if (validateUser(values.email, values.password)) {
-                        navigation.navigate('WishList', { email: values.email })
+                        console.log('is this also undefined?', { email: values.email })
+                        navigation.navigate('WishList', {
+                            screen: 'WishList',
+                            params: { email: values.email },
+                        })
+                        // navigation.navigate('WishList', { email: values.email })
                     } else {
                         resetForm();
                         alert('Invalid user')

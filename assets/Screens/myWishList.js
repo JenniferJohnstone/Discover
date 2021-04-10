@@ -12,7 +12,6 @@ import Seperator from '../Componants/Seperator'
 import Users from '../Files/users'
 
 function myWishList({ route, navigation }) {
-
     var user = Users.find(user => user.email == route.params.email)
 
     const [placeList, setPlaceList] = useState(PlaceList)
@@ -42,7 +41,7 @@ function myWishList({ route, navigation }) {
                 )
             }}>
 
-                <TouchableOpacity style={styles.listItem} onPress={() => setPlaceList(PlaceList)}>
+                <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('DetailPage', { id: item.id })}>
                     <Image source={item.image} style={styles.listImage} />
                     <View style={styles.bio}>
                         <AppText style={styles.listTitle}>{item.title}</AppText>
@@ -75,8 +74,6 @@ function myWishList({ route, navigation }) {
                 <FlatList data={placeList} renderItem={renderItem} keyExtractor={(item) => item.id} ItemSeparatorComponent={Seperator} />
             </AppView>
 
-            <AppView style={styles.menuBar}>
-            </AppView>
 
         </View>
     );
@@ -87,7 +84,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: appColors.Green,
         flex: 6,
-        paddingTop: 30
+        paddingTop: 30,
     },
     image: {
         width: 70,
@@ -119,11 +116,10 @@ const styles = StyleSheet.create({
         textAlign: 'right',
     },
     list: {
-        backgroundColor: 'white',
         paddingTop: 0,
         backgroundColor: appColors.Green,
         flexDirection: 'column',
-        flex: 5,
+        flex: 6,
         paddingLeft: 10,
         alignItems: 'center'
 
@@ -152,9 +148,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         overflow: 'scroll'
     },
-    menuBar: {
-        backgroundColor: 'white',
-        paddingTop: 0,
+    delete: {
+        marginTop: 30
     }
 
 })
