@@ -4,11 +4,11 @@ import { FlatList } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
 
-import Seperator from '../Componants/Seperator'
-import places from '../Files/places'
 import appColors from '../Config/appColors'
 import AppText from '../Componants/AppText'
 import AppView from '../Componants/AppView'
+import DataManager from '../Config/DataManager'
+
 
 function FilteredList({ navigation, route }) {
 
@@ -20,17 +20,31 @@ function FilteredList({ navigation, route }) {
         return <AppText> App Loading </AppText>
     }
 
-    const placeList = places.filter(place => {
+    const getPlaces = () => {
+        let commonData = DataManager.getInstance();
+        return commonData.getPlaceList()
+
+    }
+
+    const places = getPlaces()
+
+    var placeList = places.filter(place => {
+        return (place.country == route.params.country)
+    })
+
+    placeList = placeList.filter(place => {
         return (place.category == route.params.category)
     })
+
+
 
 
     const renderItem = ({ item }) => {
 
 
         return (
-            <TouchableOpacity style={styles.listItem}>
-                <ImageBackground source={item.image} style={styles.listImage} >
+            <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('DetailPage', { id: item.id })}>
+                <ImageBackground source={{ uri: item.image }} style={styles.listImage} >
                     <View style={styles.darkOverlay}>
                         <AppText style={styles.listTitle}>{item.title}</AppText>
                     </View>
@@ -47,9 +61,7 @@ function FilteredList({ navigation, route }) {
         <View style={styles.screen}>
 
             <AppView style={styles.row}>
-                <TouchableOpacity onPress={() => navigation.navigate('WishList', {
-                    screen: 'Categories',
-                })}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <MaterialCommunityIcons name="arrow-left" size={30} color={appColors.DarkRed} style={styles.icon} />
                 </TouchableOpacity>
 

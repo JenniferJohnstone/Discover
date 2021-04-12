@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 const TabNav = createBottomTabNavigator();
 
 import WishList from '../Screens/myWishList'
-import Categories from '../Screens/Categories'
+import CityView from '../Screens/CityView'
 import appColors from '../Config/appColors'
 
 const TabNavigator = () =>
@@ -22,10 +22,10 @@ const TabNavigator = () =>
                 )
             }
         }} />
-        <TabNav.Screen name="Categories" component={Categories} options={{
+        <TabNav.Screen name="CityView" component={CityView} options={{
             tabBarIcon: () => {
                 return (
-                    <MaterialCommunityIcons name="checkbox-multiple-blank" size={30} color={appColors.Blue} />
+                    <MaterialCommunityIcons name="city" size={30} color={appColors.Blue} />
                 )
             }
         }} />

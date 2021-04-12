@@ -10,16 +10,54 @@ import AppText from '../Componants/AppText'
 import PlaceList from '../Files/places'
 import Seperator from '../Componants/Seperator'
 import Users from '../Files/users'
+import DataManager from '../Config/DataManager'
+
 
 function myWishList({ route, navigation }) {
-    var user = Users.find(user => user.email == route.params.email)
+    // var user = Users.find(user => user.email == route.params.email)
 
-    const [placeList, setPlaceList] = useState(PlaceList)
-
-    const deleteItem = (item) => {
-        const newList = placeList.filter(placeList => placeList.id !== item.id)
-        setPlaceList(newList)
+    const getUser = () => {
+        let commonData = DataManager.getInstance();
+        let userId = commonData.getUserID();
+        return userId
     }
+
+    const getWishList = (id) => {
+        console.log('here I am running get wish list ')
+        let commonData = DataManager.getInstance()
+        let wishList = commonData.getWishList(id)
+        return wishList
+    }
+
+    const removeItem = (placeId, userId) => {
+        let commonData = DataManager.getInstance()
+        commonData.removeFromWishList(placeId, userId)
+        setPlaceList(getWishList(userId))
+    }
+
+    var user = Users.find(user => user.id == getUser())
+    var wishList = getWishList(user.id)
+
+    console.log('this is the wish list', wishList)
+
+    const [placeList, setPlaceList] = useState(wishList)
+    const [isFetching, setIsFetching] = useState(false);
+
+    const fetchData = () => {
+        setPlaceList(getWishList(user.id))
+        setIsFetching(false);
+    };
+
+    const onRefresh = () => {
+        setIsFetching(true);
+        fetchData();
+    };
+
+    // const deleteItem = (item) => {
+    //     const newList = placeList.filter(place => place.id !== item.id)
+    //     setPlaceList(newList)
+    // }
+    //old delete function
 
     let [fonts_loaded] = useFonts({
         VarelaRound_400Regular,
@@ -35,14 +73,14 @@ function myWishList({ route, navigation }) {
         return (
             <Swipeable renderRightActions={() => {
                 return (
-                    <TouchableOpacity style={styles.delete} onPress={() => deleteItem(item)}>
+                    <TouchableOpacity style={styles.delete} onPress={() => removeItem(item.id, user.id)}>
                         <MaterialCommunityIcons name="delete" size={50} color={appColors.Blue} />
                     </TouchableOpacity>
                 )
             }}>
 
                 <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('DetailPage', { id: item.id })}>
-                    <Image source={item.image} style={styles.listImage} />
+                    <Image source={{ uri: item.image }} style={styles.listImage} />
                     <View style={styles.bio}>
                         <AppText style={styles.listTitle}>{item.title}</AppText>
                         <AppText style={styles.tagline}>{item.category}</AppText>
@@ -71,8 +109,20 @@ function myWishList({ route, navigation }) {
             </AppView>
 
             <AppView style={styles.list}>
-                <FlatList data={placeList} renderItem={renderItem} keyExtractor={(item) => item.id} ItemSeparatorComponent={Seperator} />
+                <FlatList
+                    data={placeList}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    ItemSeparatorComponent={Seperator}
+                    initialNumToRender={5}
+                    onRefresh={onRefresh}
+                    refreshing={isFetching}
+                />
+
+                <AppText>Currently fixing a bug, please refresh this list after deleting or editing an item.</AppText>
+
             </AppView>
+
 
 
         </View>

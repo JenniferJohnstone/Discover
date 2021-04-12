@@ -10,6 +10,7 @@ import AppColors from '../Config/appColors'
 import AppText from '../Componants/AppText'
 import AppButton from '../Componants/AppButton'
 import Users from '../Files/users'
+import DataManager from '../Config/DataManager'
 
 function Login({ navigation }) {
 
@@ -40,6 +41,17 @@ function Login({ navigation }) {
         )
     }
 
+    const getUser = ({ email }) => {
+        return users.find((user) => user.email === email);
+    }
+
+    const createUser = ({ email }) => {
+        let commonData = DataManager.getInstance();
+        console.log(email)
+        let userID = getUser({ email }).id;
+        commonData.setUserID(userID);
+    }
+
 
     return (
         <AppView style={styles.screen}>
@@ -51,12 +63,11 @@ function Login({ navigation }) {
                 initialValues={{ email: '', password: '' }}
                 onSubmit={(values, { resetForm }) => {
                     if (validateUser(values.email, values.password)) {
-                        console.log('is this also undefined?', { email: values.email })
+                        createUser(values);
                         navigation.navigate('WishList', {
                             screen: 'WishList',
-                            params: { email: values.email },
+                            params: { email: getUser(values).email },
                         })
-                        // navigation.navigate('WishList', { email: values.email })
                     } else {
                         resetForm();
                         alert('Invalid user')

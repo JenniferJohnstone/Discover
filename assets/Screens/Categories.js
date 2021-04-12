@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -9,7 +9,9 @@ import AppView from '../Componants/AppView'
 import AppButton from '../Componants/AppButton'
 import AppColors from '../Config/appColors'
 
-function Categories({ navigation }) {
+function Categories({ route, navigation }) {
+
+    console.log('this is the route', route.params.name)
 
     let [fonts_loaded] = useFonts({
         VarelaRound_400Regular,
@@ -24,18 +26,22 @@ function Categories({ navigation }) {
     return (
         <AppView style={styles.screen}>
 
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+                <MaterialCommunityIcons name="arrow-left" size={30} color={AppColors.DarkRed} style={styles.icon} />
+            </TouchableOpacity>
+
             <AppText style={styles.title}>Categories</AppText>
             <AppView style={styles.buttonRows}>
-                <AppButton title='Places to visit' color='White' BackgroundColor='Orange' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { category: 'Place to visit' })} />
+                <AppButton title='Places to visit' color='White' BackgroundColor='Orange' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to visit' })} />
 
-                <AppButton title='Places to eat' color='White' BackgroundColor='Red' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { category: 'Place to eat' })} />
+                <AppButton title='Places to eat' color='White' BackgroundColor='Red' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to eat' })} />
             </AppView>
             <AppView style={styles.buttonRows}>
-                <AppButton title='Places to stay' color='White' BackgroundColor='Yellow' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { category: 'Place to stay' })} />
-                <AppButton title='Things to do' color='White' BackgroundColor='Blue' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { category: 'Thing to do' })} />
+                <AppButton title='Places to stay' color='White' BackgroundColor='Yellow' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to stay' })} />
+                <AppButton title='Things to do' color='White' BackgroundColor='Blue' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Thing to do' })} />
             </AppView>
 
-            <AppButton title={'Add Listing '} color='Yellow' BackgroundColor='DarkRed' size={20} style={styles.AddListing}>
+            <AppButton title={'Add Listing '} color='Yellow' BackgroundColor='DarkRed' size={20} style={styles.AddListing} onPress={() => navigation.navigate('AddPlace')}>
                 <MaterialCommunityIcons name="plus-circle" size={30} color={'white'} />
 
             </AppButton>
