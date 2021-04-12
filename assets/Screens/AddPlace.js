@@ -3,16 +3,44 @@ import { StyleSheet, View, Image, TouchableOpacity, TextInput, ScrollView } from
 import { Picker } from '@react-native-picker/picker'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Formik } from 'formik';
+import * as ImagePicker from 'expo-image-picker';
 
 import AppView from '../Componants/AppView'
 import AppText from '../Componants/AppText'
 import appColors from '../Config/appColors'
 import Places from '../Files/places'
+import AppButton from '../Componants/AppButton';
+import DataManager from '../Config/DataManager'
+
 
 function AddPlace({ navigation }) {
 
-    const [selectedLanguage, setSelectedLanguage] = useState();
+    const addListing = (listing) => {
+        let commonData = DataManager.getInstance();
+        commonData.addPlace(listing)
+    }
 
+    const [selectedCategory, setSelectedCategory] = useState('Place to stay');
+    const [selectedImage, setSelectedImage] = React.useState(null);
+    const [selectedCounty, setSelectedCountry] = useState('Fira Town')
+
+    let openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("Permission to access camera roll is required!");
+            return;
+        }
+
+        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+        console.log(pickerResult);
+
+        if (pickerResult.cancelled === true) {
+            return;
+        }
+        setSelectedImage({ localUri: pickerResult.uri });
+
+    }
 
     return (
         <ScrollView>
@@ -27,10 +55,16 @@ function AddPlace({ navigation }) {
 
                 <Formik
                     initialValues={{
-                        title: '', country: '', description: '', address: '', image: "http://dummyimage.com/225x100.png/5fa2dd/ffffff", category: 'Place to eat',
+                        title: '', country: '', description: '', address: '', image: selectedImage, category: selectedCategory,
                     }}
-                    onSubmit={(values) => {
-
+                    onSubmit={(values, { resetForm }) => {
+                        values.image = selectedImage
+                        values.id = String(Math.random())
+                        values.category = selectedCategory
+                        values.country = selectedCounty
+                        console.log('here are all  the values', values)
+                        addListing(values)
+                        resetForm();
                     }}
                 >
                     {({ handleChange, handleSubmit, errors, values }) => (
@@ -40,7 +74,37 @@ function AddPlace({ navigation }) {
                                 <TextInput placeholder={'Name'} value={values.title} style={styles.title} onChangeText={handleChange("title")} selectTextOnFocus={true} maxLength={18} />
                             </View>
 
-                            <TextInput placeholder={'country'} onChangeText={handleChange("country")} values={values.country} selectTextOnFocus={true} style={styles.country} />
+                            <View style={{ backgroundColor: 'white', padding: 5, marginTop: 20 }}>
+                                <Picker
+                                    selectedValue={selectedCounty}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        setSelectedCountry(itemValue)
+                                    }
+                                    style={{ height: 50, width: 150 }}
+                                >
+                                    <Picker.Item label="Fira Town" value="Fira Town" />
+                                    <Picker.Item label="Sydney" value="Sydney" />
+                                    <Picker.Item label="New York" value="New York" />
+                                    <Picker.Item label="Abu Dabi" value="Abu Dabi" />
+                                    <Picker.Item label="London" value="London" />
+                                    <Picker.Item label="Tokyo" value="Tokyo" />
+
+
+                                </Picker>
+                            </View>
+
+                            <TouchableOpacity onPress={openImagePickerAsync}>
+                                <AppText style={styles.picker}>Pick a picture</AppText>
+                            </TouchableOpacity>
+
+                            {selectedImage !== null &&
+                                <>
+                                    <Image
+                                        source={{ uri: selectedImage.localUri }}
+                                        style={styles.thumbnail}
+                                    />
+                                </>
+                            }
 
                             <View style={styles.textBody}>
 
@@ -53,26 +117,28 @@ function AddPlace({ navigation }) {
 
                             </View>
 
+                            <View style={{ backgroundColor: 'white', padding: 5, marginTop: 20 }}>
+                                <Picker
+                                    selectedValue={selectedCategory}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        setSelectedCategory(itemValue)
+                                    }
+                                    style={{ height: 50, width: 150 }}
+                                >
+                                    <Picker.Item label="Places to visit" value="Places to visit" />
+                                    <Picker.Item label="Places to eat" value="Places to eat" />
+                                    <Picker.Item label="Places to stay" value="Places to stay" />
+                                    <Picker.Item label="Things to do" value="Things to do" />
+
+                                </Picker>
+                            </View>
+
+                            <AppButton title="Submit" color="DarkRed" BackgroundColor="Orange" onPress={handleSubmit} />
+
                         </>
                     )}
 
                 </Formik>
-
-                <View style={{ backgroundColor: 'white', padding: 5, marginTop: 20 }}>
-                    <Picker
-                        selectedValue={selectedLanguage}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setSelectedLanguage(itemValue)
-                        }
-                        style={{ height: 50, width: 150 }}
-                    >
-                        <Picker.Item label="Places to visit" value="Places to visit" />
-                        <Picker.Item label="Places to eat" value="Places to eat" />
-                        <Picker.Item label="Places to stay" value="Places to stay" />
-                        <Picker.Item label="Things to do" value="Things to do" />
-
-                    </Picker>
-                </View>
 
 
             </View>
@@ -137,6 +203,17 @@ const styles = StyleSheet.create({
     },
     icon: {
         padding: 10,
+    },
+    picker: {
+        backgroundColor: appColors.Yellow,
+        padding: 10,
+        fontSize: 20,
+        marginTop: 10
+    },
+    thumbnail: {
+        width: 300,
+        height: 300,
+        resizeMode: "contain"
     }
 })
 

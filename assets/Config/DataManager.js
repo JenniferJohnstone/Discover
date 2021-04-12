@@ -150,7 +150,13 @@ export default class DataManager {
             }
         })
         let placeIndex = this.wishList[userIndex].placeList.indexOf(placeId)
-        this.wishList[userIndex].placeList.splice(placeIndex, 1)
+        if (placeIndex == undefined) {
+            console.log('it was undefined')
+            return 0
+
+        } else {
+            this.wishList[userIndex].placeList.splice(placeIndex, 1)
+        }
     }
 
     getPlace(id) {
@@ -165,6 +171,7 @@ export default class DataManager {
     // rewrite this function to return the place from here 
 
     addPlace(data) {
+        data.image = data.image.localUri
         this.placeList.push(data);
     }
 

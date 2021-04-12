@@ -53,12 +53,6 @@ function myWishList({ route, navigation }) {
         fetchData();
     };
 
-    // const deleteItem = (item) => {
-    //     const newList = placeList.filter(place => place.id !== item.id)
-    //     setPlaceList(newList)
-    // }
-    //old delete function
-
     let [fonts_loaded] = useFonts({
         VarelaRound_400Regular,
     })

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import AppView from '../Componants/AppView'
@@ -19,10 +19,7 @@ function DetailPage({ navigation, route }) {
         return place
     }
 
-    console.log('this is the route params', route.params)
     const item = getPlace(route.params.id)
-
-    console.log('this is get place', item)
 
     const removeItem = (id) => {
         let commonData = DataManager.getInstance();
@@ -30,7 +27,12 @@ function DetailPage({ navigation, route }) {
         let user = commonData.getUserID()
         commonData.removeFromWishList(id, user)
         navigation.navigate('WishList')
+    }
 
+    const handleDelete = (id) => {
+        Alert.alert("Delete Item", "deleting this item will permanately remove it from this app, do you wish to proceed?",
+            [{ text: "yes", onPress: () => removeItem(id) },
+            { text: 'no' }])
     }
 
     return (
@@ -56,7 +58,9 @@ function DetailPage({ navigation, route }) {
             </View>
 
             <View style={styles.row}>
-                <AppButton style={styles.edit} BackgroundColor="DarkRed" onPress={() => removeItem(item.id)}>
+                {/* <AppButton style={styles.edit} BackgroundColor="DarkRed" onPress={() => removeItem(item.id)}> */}
+                <AppButton style={styles.edit} BackgroundColor="DarkRed" onPress={() => handleDelete(item.id)}>
+
                     <MaterialCommunityIcons name="delete" size={30} color={appColors.White} style={{ marginRight: 10 }} />
                 </AppButton>
                 <AppButton style={styles.edit} BackgroundColor={"Blue"} onPress={() => navigation.navigate('Edit', { id: item.id })}>
