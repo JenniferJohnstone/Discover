@@ -64,7 +64,7 @@ function AddPlace({ navigation }) {
                         values.country = selectedCounty
                         console.log('here are all  the values', values)
                         addListing(values)
-                        resetForm();
+                        navigation.goBack()
                     }}
                 >
                     {({ handleChange, handleSubmit, errors, values }) => (
@@ -125,10 +125,10 @@ function AddPlace({ navigation }) {
                                     }
                                     style={{ height: 50, width: 150 }}
                                 >
-                                    <Picker.Item label="Places to visit" value="Places to visit" />
-                                    <Picker.Item label="Places to eat" value="Places to eat" />
-                                    <Picker.Item label="Places to stay" value="Places to stay" />
-                                    <Picker.Item label="Things to do" value="Things to do" />
+                                    <Picker.Item label="Places to visit" value="Place to visit" />
+                                    <Picker.Item label="Places to eat" value="Place to eat" />
+                                    <Picker.Item label="Places to stay" value="Place to stay" />
+                                    <Picker.Item label="Things to do" value="Thing to do" />
 
                                 </Picker>
                             </View>

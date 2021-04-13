@@ -6,5 +6,6 @@ export default {
     Orange: '#F4A261',
     Red: '#E76F51',
     DarkRed: '#c13917',
-    White: 'white'
+    White: 'white',
+    DarkYellow: '#d6b96f'
 }

@@ -23,7 +23,6 @@ function myWishList({ route, navigation }) {
     }
 
     const getWishList = (id) => {
-        console.log('here I am running get wish list ')
         let commonData = DataManager.getInstance()
         let wishList = commonData.getWishList(id)
         return wishList
@@ -37,8 +36,6 @@ function myWishList({ route, navigation }) {
 
     var user = Users.find(user => user.id == getUser())
     var wishList = getWishList(user.id)
-
-    console.log('this is the wish list', wishList)
 
     const [placeList, setPlaceList] = useState(wishList)
     const [isFetching, setIsFetching] = useState(false);
@@ -113,7 +110,8 @@ function myWishList({ route, navigation }) {
                     refreshing={isFetching}
                 />
 
-                <AppText>Currently fixing a bug, please refresh this list after deleting or editing an item.</AppText>
+                <AppText>Currently fixing a bug, please refresh this list (possibly multiple times) after making changes.
+                </AppText>
 
             </AppView>
 

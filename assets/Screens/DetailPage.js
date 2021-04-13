@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import AppView from '../Componants/AppView'
 import AppText from '../Componants/AppText'
 import appColors from '../Config/appColors'
-import Places from '../Files/places'
 import AppButton from '../Componants/AppButton'
 import DataManager from '../Config/DataManager'
 
 function DetailPage({ navigation, route }) {
 
-    console.log('this is the place id', route.params.id)
-
     const getPlace = (id) => {
         let commonData = DataManager.getInstance();
         let place = commonData.getPlace(id)
         return place
+    }
+
+    const addToWishList = (placeId) => {
+        let commonData = DataManager.getInstance();
+        let userId = commonData.getUserID()
+        console.log('heres the user id at the details page omg', commonData.getUserID())
+        commonData.addToWishList(placeId, userId)
+        navigation.navigate('WishList')
     }
 
     const item = getPlace(route.params.id)
@@ -56,15 +61,15 @@ function DetailPage({ navigation, route }) {
                 </AppView>
 
             </View>
-
             <View style={styles.row}>
-                {/* <AppButton style={styles.edit} BackgroundColor="DarkRed" onPress={() => removeItem(item.id)}> */}
                 <AppButton style={styles.edit} BackgroundColor="DarkRed" onPress={() => handleDelete(item.id)}>
-
                     <MaterialCommunityIcons name="delete" size={30} color={appColors.White} style={{ marginRight: 10 }} />
                 </AppButton>
                 <AppButton style={styles.edit} BackgroundColor={"Blue"} onPress={() => navigation.navigate('Edit', { id: item.id })}>
                     <MaterialCommunityIcons name="pencil-outline" size={30} color={appColors.White} style={{ marginRight: 10 }} />
+                </AppButton>
+                <AppButton style={styles.edit} BackgroundColor={"Red"} onPress={() => addToWishList(item.id)} >
+                    <MaterialCommunityIcons name="cards-heart" size={30} color={appColors.White} style={{ marginRight: 10 }} />
                 </AppButton>
             </View>
         </AppView>

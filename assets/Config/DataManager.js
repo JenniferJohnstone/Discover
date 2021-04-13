@@ -144,18 +144,29 @@ export default class DataManager {
     }
 
     removeFromWishList(placeId, userId) {
-        let userIndex = this.wishList.findIndex(listing => {
-            if (listing.userId === userId) {
-                return true
-            }
-        })
+        let userIndex = this.findUserIndex(userId)
         let placeIndex = this.wishList[userIndex].placeList.indexOf(placeId)
         if (placeIndex == undefined) {
-            console.log('it was undefined')
             return 0
 
         } else {
             this.wishList[userIndex].placeList.splice(placeIndex, 1)
+        }
+    }
+
+    findUserIndex(id) {
+        let userIndex = this.wishList.findIndex(listing => {
+            if (listing.userId === id) {
+                return true
+            }
+        })
+        return userIndex
+    }
+
+    addToWishList(placeId, userId) {
+        let userIndex = this.findUserIndex(userId)
+        if (this.wishList[userIndex].placeList.indexOf(placeId) === -1) {
+            this.wishList[userIndex].placeList.push(placeId)
         }
     }
 
@@ -176,14 +187,24 @@ export default class DataManager {
     }
 
     removePlace(id) {
+        let placeIndex = this.findPlaceIndex(id)
+        //first we find the index of the place we want to remove 
+        this.placeList.splice(placeIndex, 1)
+        //then we remove it
+    }
+
+    editPlace(id, data) {
+        let placeIndex = this.findPlaceIndex(id)
+        this.placeList[placeIndex] = data
+    }
+
+    findPlaceIndex(id) {
         let placeIndex = this.placeList.findIndex(place => {
             if (place.id === id) {
                 return true
             }
         })
-        //first we find the index of the place we want to remove 
-        this.placeList.splice(placeIndex, 1)
-        //then we remove it
+        return placeIndex
     }
 
 }

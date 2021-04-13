@@ -29,9 +29,6 @@ function FilteredList({ navigation, route }) {
     //let's try filtering this place  list to see if it contains the newly added location, maybe try doing it at back end too
     const places = getPlaces()
 
-    console.log('places', places[places.length - 1])
-
-
     var placeList = places.filter(place => {
         return (place.country == route.params.country)
     })
