@@ -25,8 +25,6 @@ function FilteredList({ navigation, route }) {
         return commonData.getPlaceList()
 
     }
-
-    //let's try filtering this place  list to see if it contains the newly added location, maybe try doing it at back end too
     const places = getPlaces()
 
     var placeList = places.filter(place => {
@@ -56,21 +54,41 @@ function FilteredList({ navigation, route }) {
     }
 
     return (
-        <View style={styles.screen}>
+        <>
+            <View style={styles.screen}>
 
-            <AppView style={styles.row}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name="arrow-left" size={30} color={appColors.DarkRed} style={styles.icon} />
-                </TouchableOpacity>
+                <AppView style={styles.row}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialCommunityIcons name="arrow-left" size={30} color={appColors.DarkRed} style={styles.icon} />
+                    </TouchableOpacity>
 
-                <AppText style={styles.title}>{route.params.category}</AppText>
+                    <AppText style={styles.title}>{route.params.category}</AppText>
 
-            </AppView>
+                </AppView>
+                {placeList.length == 0 &&
+                    <>
+                        <AppView style={styles.noListings}>
+                            <AppText style={styles.noListingTitle}>No listings yet!</AppText>
+                            <TouchableOpacity onPress={() => navigation.navigate('AddPlace')}>
+                                <AppText style={[styles.noListingTitle, { color: appColors.DarkRed }]}>Add one</AppText>
+                            </TouchableOpacity>
+                        </AppView>
+                    </>
+                }
+                <FlatList style={styles.list} data={placeList} renderItem={renderItem} keyExtractor={(item) => item.id} horizontal={false} numColumns={2} />
 
-            <FlatList style={styles.list} data={placeList} renderItem={renderItem} keyExtractor={(item) => item.id} horizontal={false} numColumns={2} />
+            </View>
+            {/* {
+                placeList.length == 0 &&
+                <AppView style={styles.noListings}>
+                    <AppText style={styles.noListingTitle}>No listings yet!</AppText>
+                    <TouchableOpacity onPress={() => navigation.navigate('AddPlace')}>
+                        <AppText style={[styles.noListingTitle, { color: appColors.DarkRed }]}>Add one</AppText>
+                    </TouchableOpacity>
+                </AppView>
+            } */}
 
-
-        </View>
+        </>
     );
 }
 
@@ -78,7 +96,7 @@ const styles = StyleSheet.create({
     screen: {
         paddingTop: 50,
         backgroundColor: appColors.Green,
-        flex: 6,
+        flex: 1,
         alignItems: 'center'
     },
     title: {
@@ -89,7 +107,7 @@ const styles = StyleSheet.create({
         flex: 5,
     },
     list: {
-        height: 550,
+        // height: 550,
     },
     listItem: {
         alignItems: 'center',
@@ -133,6 +151,16 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(0,0,0,.6)',
         justifyContent: 'center',
+    },
+    noListings: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    noListingTitle: {
+        fontSize: 20,
+        width: 300,
+        textAlign: 'center',
+        color: appColors.White
     }
 })
 
