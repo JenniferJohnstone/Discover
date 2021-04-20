@@ -7,14 +7,12 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import AppView from '../Componants/AppView'
 import appColors from '../Config/appColors';
 import AppText from '../Componants/AppText'
-import PlaceList from '../Files/places'
 import Seperator from '../Componants/Seperator'
 import Users from '../Files/users'
 import DataManager from '../Config/DataManager'
 
 
 function myWishList({ route, navigation }) {
-    // var user = Users.find(user => user.email == route.params.email)
 
     const getUser = () => {
         let commonData = DataManager.getInstance();
@@ -49,6 +47,8 @@ function myWishList({ route, navigation }) {
         setIsFetching(true);
         fetchData();
     };
+
+
 
     let [fonts_loaded] = useFonts({
         VarelaRound_400Regular,
@@ -110,7 +110,7 @@ function myWishList({ route, navigation }) {
                     refreshing={isFetching}
                 />
 
-                <AppText>Currently fixing a bug, please refresh this list (possibly multiple times) after making changes.
+                <AppText>Currently fixing a bug, please refresh (by swiping down) this list (possibly multiple times) after making changes.
                 </AppText>
 
             </AppView>
@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
         height: 70,
     },
     container: {
+        paddingLeft: 20,
         paddingTop: 0,
         flexDirection: 'row',
     },

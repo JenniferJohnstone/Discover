@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
+
 
 import AppView from '../Componants/AppView'
 import AppText from '../Componants/AppText'
@@ -40,6 +42,15 @@ function DetailPage({ navigation, route }) {
             { text: 'no' }])
     }
 
+
+    let [fonts_loaded] = useFonts({
+        VarelaRound_400Regular,
+    })
+
+    if (!fonts_loaded) {
+        return <AppText> App Loading </AppText>
+    }
+
     return (
         <AppView style={styles.screen}>
 
@@ -56,8 +67,8 @@ function DetailPage({ navigation, route }) {
             <View style={styles.textBody}>
                 <AppText style={styles.bio}>{item.description}</AppText>
                 <AppView style={{ alignItems: 'center' }}>
-                    <AppText style={{ fontSize: 18, color: appColors.Red }}>Address:</AppText>
-                    <AppText style={{ fontSize: 15 }}>{item.address}</AppText>
+                    <AppText style={[styles.address, { fontSize: 18, color: appColors.Red }]}>Address:</AppText>
+                    <AppText style={styles.address}>{item.address}</AppText>
                 </AppView>
 
             </View>
@@ -87,6 +98,8 @@ const styles = StyleSheet.create({
         fontSize: 35,
         marginBottom: 5,
         paddingLeft: 5,
+        fontFamily: 'VarelaRound_400Regular',
+
     },
     image: {
         width: 300,
@@ -97,6 +110,8 @@ const styles = StyleSheet.create({
         width: 300,
         textAlign: 'center',
         padding: 10,
+        fontFamily: 'VarelaRound_400Regular',
+
     },
     row: {
         flexDirection: 'row',
@@ -111,7 +126,9 @@ const styles = StyleSheet.create({
     country: {
         color: appColors.DarkRed,
         marginBottom: 10,
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'VarelaRound_400Regular',
+
 
     },
     edit: {
@@ -122,6 +139,11 @@ const styles = StyleSheet.create({
     },
     icon: {
         padding: 10,
+    },
+    address: {
+        fontSize: 15,
+        fontFamily: 'VarelaRound_400Regular',
+
     }
 })
 

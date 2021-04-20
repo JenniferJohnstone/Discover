@@ -117,6 +117,8 @@ export default class DataManager {
         }
     ]
 
+    // this is an array of lists that contain the id's of the  places within their wishlist 
+
 
     static getInstance() {
         if (DataManager.myInstance == null) {
@@ -135,24 +137,24 @@ export default class DataManager {
 
     getWishList(id) {
         let wishList = this.wishList.filter(listing => listing.userId === id)
-        // This is the array holding the id's of the places, there should only be one containing the person's id
         let userPlaceList = wishList[0].placeList
         userPlaceList = this.placeList.filter(place => {
             return userPlaceList.includes(place.id)
         })
         return userPlaceList
     }
+    // filters the wishList array for the entry containing the user's id 
 
     removeFromWishList(placeId, userId) {
         let userIndex = this.findUserIndex(userId)
         let placeIndex = this.wishList[userIndex].placeList.indexOf(placeId)
         if (placeIndex == undefined) {
             return 0
-
         } else {
             this.wishList[userIndex].placeList.splice(placeIndex, 1)
         }
     }
+    // this will remove the id of the place given from the user's wishlist entry 
 
     findUserIndex(id) {
         let userIndex = this.wishList.findIndex(listing => {
@@ -163,6 +165,8 @@ export default class DataManager {
         return userIndex
     }
 
+    // this will find the index of the user's entry within the wishlist array 
+
     addToWishList(placeId, userId) {
         let userIndex = this.findUserIndex(userId)
         if (this.wishList[userIndex].placeList.indexOf(placeId) === -1) {
@@ -170,33 +174,36 @@ export default class DataManager {
         }
     }
 
+    //this will add the id of the given place to the user's wishlist entry 
+
     getPlace(id) {
         item = this.placeList.filter(place => place.id === id)
         return item[0]
     }
+    //filters the placelist array for the one containing the id 
 
     getPlaceList() {
         return this.placeList
     }
-
-    // rewrite this function to return the place from here 
+    //simply returns all the places within the array
 
     addPlace(data) {
         data.image = data.image.localUri
         this.placeList.push(data);
     }
+    // adds an entry to the placelist 
 
     removePlace(id) {
         let placeIndex = this.findPlaceIndex(id)
-        //first we find the index of the place we want to remove 
         this.placeList.splice(placeIndex, 1)
-        //then we remove it
     }
+    // removes the place from the array that matches the given id 
 
     editPlace(id, data) {
         let placeIndex = this.findPlaceIndex(id)
         this.placeList[placeIndex] = data
     }
+    //finds the index of the place's entry within the placelist array and replaces it with the edited version 
 
     findPlaceIndex(id) {
         let placeIndex = this.placeList.findIndex(place => {
@@ -206,5 +213,6 @@ export default class DataManager {
         })
         return placeIndex
     }
+    //returns the index of the place within the placelist array  
 
 }
