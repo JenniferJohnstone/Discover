@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, TextInput, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, Platform, TextInput, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -50,10 +50,10 @@ function Register({ navigation }) {
 
 
                     <AppText style={[styles.registration, { paddingBottom: 70 }]}>Already registered?
-                            <TouchableOpacity onPress={() => navigation.navigate('Login')}><AppText style={styles.login}> Login</AppText></TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('Login')}><AppText style={styles.login}> Login</AppText></TouchableOpacity>
                     </AppText>
 
-                    <AppButton title='Register' BackgroundColor='Red' color='Yellow' style={styles.Button} />
+                    <AppButton title='Register' BackgroundColor='Blue' color='White' style={styles.Button} />
 
                 </AppView>
             </KeyboardAvoidingView>
@@ -66,21 +66,21 @@ function Register({ navigation }) {
 
 const styles = StyleSheet.create({
     screen: {
-        backgroundColor: AppColors.Green,
+        backgroundColor: AppColors.White,
         alignItems: 'center',
         paddingTop: 50
     },
     title: {
         fontFamily: 'VarelaRound_400Regular',
         fontSize: 30,
-        color: AppColors.Yellow,
+        color: AppColors.Blue,
         textAlign: 'center'
 
     },
     label: {
         textAlign: 'left',
         fontFamily: 'VarelaRound_400Regular',
-        color: AppColors.Yellow,
+        color: AppColors.DarkBlue,
         paddingTop: 10
 
     },
@@ -92,17 +92,17 @@ const styles = StyleSheet.create({
     },
     underline: {
         borderBottomWidth: 2,
-        borderBottomColor: AppColors.DarkRed,
+        borderBottomColor: AppColors.Blue,
     },
     registration: {
-        color: AppColors.Yellow,
+        color: AppColors.Blue,
         fontSize: 15,
         paddingTop: 50,
         textAlign: 'center'
     },
     login: {
         marginTop: 10,
-        color: AppColors.DarkRed,
+        color: AppColors.DarkBlue,
         fontWeight: 'bold',
     },
     Button: {

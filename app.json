@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "This is a basic version of a travelling application, the intention I had behind this project is that users would be able to post locations of things to do/experience while in different major cities. The user would be able to compile their own wish list of activities they like, or be able to contribute their own listings for locations. \n\nPlease login with billy@gmail.com and 1234 or 1234@gmail.com and 1234 to see two user examples. \n\nThis application was tested on a VIVO running android. ",
+    "githubUrl": "https://github.com/JenniferJohnstone/Discover"
   }
 }

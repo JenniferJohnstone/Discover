@@ -4,11 +4,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Formik } from 'formik';
 import { Picker } from '@react-native-picker/picker'
 import * as ImagePicker from 'expo-image-picker';
+import * as Yup from 'yup'
+
 
 import AppView from '../Componants/AppView'
 import AppText from '../Componants/AppText'
 import appColors from '../Config/appColors'
-import Places from '../Files/places'
 import DataManager from '../Config/DataManager'
 import AppButton from '../Componants/AppButton';
 
@@ -77,6 +78,15 @@ function DetailPage({ navigation, route }) {
         )
     }
 
+    const schema = Yup.object().shape(
+        {
+            title: Yup.string().required().email().label("title"),
+            country: Yup.string().required().min(4).max(8).label("country"),
+            description: Yup.string().required().label("description"),
+            address: Yup.string().required().label("address")
+        }
+    )
+
     return (
         <ScrollView>
             <View style={styles.screen}>
@@ -85,19 +95,22 @@ function DetailPage({ navigation, route }) {
                     <MaterialCommunityIcons name="arrow-left" size={20} color={appColors.DarkRed} style={styles.icon} />
                 </TouchableOpacity>
 
-                <AppText>Edit Mode: Tap any field to make an edit</AppText>
+                <AppText style={styles.message}>Edit Mode: Tap any field to make an edit</AppText>
 
                 <Formik
                     initialValues={{ title: item.title, country: item.country, description: item.description, address: item.address }}
                     onSubmit={(values) => {
                         submitEdit(item.id, values)
                     }}
+                    validationSchema={schema}
+
                 >
                     {({ handleChange, handleSubmit, errors, values }) => (
                         <>
 
                             <View style={{ flexDirection: 'row' }}>
                                 <TextInput placeholder={item.title} value={values.title} onChangeText={handleChange("title")} style={styles.title} selectTextOnFocus={true} maxLength={18} />
+                                <AppText>{errors.title}</AppText>
                             </View>
 
                             <View style={{ backgroundColor: 'white', padding: 5, marginTop: 20 }}>
@@ -139,7 +152,12 @@ function DetailPage({ navigation, route }) {
 
                                 <AppView style={{ alignItems: 'center' }}>
                                     <AppText style={{ fontSize: 18, color: appColors.Red }}>Address:</AppText>
-                                    <TextInput selectTextOnFocus={true} placeholder={item.address} value={values.address} onChangeText={handleChange("address")} />
+                                    <TextInput
+                                        selectTextOnFocus={true}
+                                        placeholder={item.address}
+                                        value={values.address}
+                                        onChangeText={handleChange("address")}
+                                    />
                                 </AppView>
                             </View>
 
@@ -158,9 +176,7 @@ function DetailPage({ navigation, route }) {
 
                                 </Picker>
                             </View>
-
                             <AppButton title="Submit" color="DarkRed" BackgroundColor="Orange" onPress={handleSubmit} style={styles.submit} />
-
 
 
                         </>
@@ -185,12 +201,11 @@ const styles = StyleSheet.create({
         color: appColors.Yellow,
         fontSize: 35,
         marginBottom: 5,
-        // borderBottomWidth: 1,
         padding: 10
     },
     image: {
         width: 300,
-        height: 170
+        height: 170,
     },
     bio: {
         fontSize: 22,
@@ -224,7 +239,8 @@ const styles = StyleSheet.create({
     },
     submit: {
         width: 200,
-        height: 100
+        height: 100,
+        alignItems: 'center'
     },
     picker: {
         backgroundColor: appColors.Yellow,
@@ -237,6 +253,10 @@ const styles = StyleSheet.create({
         height: 300,
         resizeMode: "contain",
         margin: 0
+    },
+    message: {
+        backgroundColor: appColors.White,
+        padding: 10
     }
 })
 

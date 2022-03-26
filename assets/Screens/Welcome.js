@@ -31,9 +31,8 @@ function Welcome({ navigation }) {
 
             <AppText style={styles.subtitle}>All the things you'd want to do in one place.</AppText>
 
-
-            <AppButton style={styles.button} title="Login" BackgroundColor="Orange" color="Blue" size={20} onPress={() => navigation.navigate("Login")} />
-            <AppButton style={styles.button} title="Register" BackgroundColor="Red" color="Yellow" size={20} onPress={() => navigation.navigate("Register")} />
+            <AppButton style={styles.button} title="Login" BackgroundColor="Blue" color="White" size={20} onPress={() => navigation.navigate("Login")} />
+            <AppButton style={styles.button} title="Register" BackgroundColor="Green" color="White" size={20} onPress={() => navigation.navigate("Register")} />
 
 
         </AppView>
@@ -43,7 +42,7 @@ function Welcome({ navigation }) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: AppColors.Green,
+        backgroundColor: '#F4F8FB',
         alignItems: 'center',
         paddingTop: 50
     },
@@ -53,16 +52,16 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 50,
-        color: AppColors.Yellow,
+        color: '#248ed0',
         fontFamily: 'VarelaRound_400Regular'
     },
     subtitle: {
         fontSize: 20,
         width: 300,
         textAlign: 'center',
-        color: AppColors.Yellow,
+        color: '#248ed0',
         fontFamily: 'VarelaRound_400Regular',
-        paddingBottom: 20
+        paddingBottom: 10
     },
     button: {
         height: 80,

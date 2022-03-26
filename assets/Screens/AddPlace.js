@@ -8,17 +8,11 @@ import * as ImagePicker from 'expo-image-picker';
 import AppView from '../Componants/AppView'
 import AppText from '../Componants/AppText'
 import appColors from '../Config/appColors'
-import Places from '../Files/places'
 import AppButton from '../Componants/AppButton';
-import DataManager from '../Config/DataManager'
+import addListing from '../functions/addListing'
 
 
 function AddPlace({ navigation }) {
-
-    const addListing = (listing) => {
-        let commonData = DataManager.getInstance();
-        commonData.addPlace(listing)
-    }
 
     const [selectedCategory, setSelectedCategory] = useState('Place to stay');
     const [selectedImage, setSelectedImage] = React.useState(null);
@@ -58,13 +52,19 @@ function AddPlace({ navigation }) {
                         title: '', country: '', description: '', address: '', image: selectedImage, category: selectedCategory,
                     }}
                     onSubmit={(values, { resetForm }) => {
-                        values.image = selectedImage
-                        values.id = String(Math.random())
-                        values.category = selectedCategory
-                        values.country = selectedCounty
-                        console.log('here are all  the values', values)
-                        addListing(values)
-                        navigation.goBack()
+                        if (selectedImage == null) {
+                            alert('please select an image before submitting')
+                        } else {
+
+                            values.image = selectedImage
+                            values.id = String(Math.random())
+                            values.category = selectedCategory
+                            values.country = selectedCounty
+                            console.log('here are all  the values', values)
+                            addListing(values)
+                            navigation.goBack()
+
+                        }
                     }}
                 >
                     {({ handleChange, handleSubmit, errors, values }) => (

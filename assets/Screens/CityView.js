@@ -37,7 +37,7 @@ function CityView({ route, navigation }) {
 
 const styles = StyleSheet.create({
     screen: {
-        backgroundColor: appColors.Green,
+        backgroundColor: appColors.White,
         paddingTop: 50,
         flex: 6,
         alignItems: 'center'
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         textAlign: 'center',
-        color: appColors.Yellow
+        color: appColors.Blue
     },
 
 })

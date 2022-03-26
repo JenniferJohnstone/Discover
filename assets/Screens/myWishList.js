@@ -7,14 +7,12 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import AppView from '../Componants/AppView'
 import appColors from '../Config/appColors';
 import AppText from '../Componants/AppText'
-import PlaceList from '../Files/places'
 import Seperator from '../Componants/Seperator'
 import Users from '../Files/users'
 import DataManager from '../Config/DataManager'
 
 
 function myWishList({ route, navigation }) {
-    // var user = Users.find(user => user.email == route.params.email)
 
     const getUser = () => {
         let commonData = DataManager.getInstance();
@@ -50,6 +48,8 @@ function myWishList({ route, navigation }) {
         fetchData();
     };
 
+
+
     let [fonts_loaded] = useFonts({
         VarelaRound_400Regular,
     })
@@ -75,7 +75,7 @@ function myWishList({ route, navigation }) {
                     <View style={styles.bio}>
                         <AppText style={styles.listTitle}>{item.title}</AppText>
                         <AppText style={styles.tagline}>{item.category}</AppText>
-                        <AppText style={styles.tagline, { color: appColors.DarkRed }}>{item.country}</AppText>
+                        <AppText style={styles.tagline, { color: appColors.Green }}>{item.country}</AppText>
                     </View>
                 </TouchableOpacity>
             </Swipeable>
@@ -110,7 +110,7 @@ function myWishList({ route, navigation }) {
                     refreshing={isFetching}
                 />
 
-                <AppText>Currently fixing a bug, please refresh this list (possibly multiple times) after making changes.
+                <AppText>Currently fixing a bug, please refresh (by swiping down) this list (possibly multiple times) after making changes.
                 </AppText>
 
             </AppView>
@@ -124,7 +124,7 @@ function myWishList({ route, navigation }) {
 const styles = StyleSheet.create({
     flexbox: {
         flexDirection: 'column',
-        backgroundColor: appColors.Green,
+        backgroundColor: appColors.White,
         flex: 6,
         paddingTop: 30,
     },
@@ -133,11 +133,12 @@ const styles = StyleSheet.create({
         height: 70,
     },
     container: {
+        paddingLeft: 20,
         paddingTop: 0,
         flexDirection: 'row',
     },
     title: {
-        color: appColors.Yellow,
+        color: appColors.Blue,
         paddingTop: 25,
         fontSize: 20,
         fontFamily: 'VarelaRound_400Regular',
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     },
     logout: {
         fontSize: 15,
-        color: appColors.Yellow,
+        color: appColors.Green,
         textAlign: 'right',
         paddingRight: 10
     },
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     },
     list: {
         paddingTop: 0,
-        backgroundColor: appColors.Green,
+        backgroundColor: appColors.White,
         flexDirection: 'column',
         flex: 6,
         paddingLeft: 10,
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     listTitle: {
-        color: appColors.Yellow,
+        color: appColors.DarkBlue,
         fontSize: 20,
         fontFamily: 'VarelaRound_400Regular',
 

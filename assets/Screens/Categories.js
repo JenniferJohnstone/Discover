@@ -27,21 +27,21 @@ function Categories({ route, navigation }) {
         <AppView style={styles.screen}>
 
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <MaterialCommunityIcons name="arrow-left" size={30} color={AppColors.DarkRed} style={styles.icon} />
+                <MaterialCommunityIcons name="arrow-left" size={50} color={AppColors.DarkBlue} style={styles.icon} />
             </TouchableOpacity>
 
             <AppText style={styles.title}>Categories</AppText>
             <AppView style={styles.buttonRows}>
-                <AppButton title='Places to visit' color='White' BackgroundColor='Orange' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to visit' })} />
+                <AppButton title='Places to visit' color='White' BackgroundColor='Blue' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to visit' })} />
 
-                <AppButton title='Places to eat' color='White' BackgroundColor='Red' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to eat' })} />
+                <AppButton title='Places to eat' color='White' BackgroundColor='Blue' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to eat' })} />
             </AppView>
             <AppView style={styles.buttonRows}>
-                <AppButton title='Places to stay' color='White' BackgroundColor='Yellow' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to stay' })} />
+                <AppButton title='Places to stay' color='White' BackgroundColor='Blue' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Place to stay' })} />
                 <AppButton title='Things to do' color='White' BackgroundColor='Blue' size={20} style={styles.visit} onPress={() => navigation.navigate('FilteredList', { country: route.params.name, category: 'Thing to do' })} />
             </AppView>
 
-            <AppButton title={'Add Listing '} color='Yellow' BackgroundColor='DarkRed' size={20} style={styles.AddListing} onPress={() => navigation.navigate('AddPlace')}>
+            <AppButton title={'Add Listing '} color='White' BackgroundColor='Green' size={20} style={styles.AddListing, { padding: 20 }} onPress={() => navigation.navigate('AddPlace')}>
                 <MaterialCommunityIcons name="plus-circle" size={30} color={'white'} />
 
             </AppButton>
@@ -53,13 +53,13 @@ function Categories({ route, navigation }) {
 
 const styles = StyleSheet.create({
     screen: {
-        backgroundColor: AppColors.Green,
+        backgroundColor: AppColors.White,
         alignItems: 'center',
         flex: 6,
         paddingTop: 50,
     },
     title: {
-        color: AppColors.Yellow,
+        color: AppColors.Blue,
         fontFamily: 'VarelaRound_400Regular',
         fontSize: 30
 

@@ -49,7 +49,7 @@ function FilteredList({ navigation, route }) {
                 </ImageBackground>
                 <View style={styles.bio}>
                     <AppText style={styles.tagline}>{item.category}</AppText>
-                    <AppText style={[styles.tagline, { color: appColors.DarkRed, }]}>{item.country}</AppText>
+                    <AppText style={[styles.tagline, { color: appColors.DarkBlue, }]}>{item.country}</AppText>
                 </View>
             </TouchableOpacity>
         )
@@ -60,7 +60,7 @@ function FilteredList({ navigation, route }) {
 
             <AppView style={styles.row}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <MaterialCommunityIcons name="arrow-left" size={30} color={appColors.DarkRed} style={styles.icon} />
+                    <MaterialCommunityIcons name="arrow-left" size={30} color={appColors.DarkBlue} style={styles.icon, { margin: 10, marginTop: 13 }} />
                 </TouchableOpacity>
 
                 <AppText style={styles.title}>{route.params.category}</AppText>
@@ -77,19 +77,21 @@ function FilteredList({ navigation, route }) {
 const styles = StyleSheet.create({
     screen: {
         paddingTop: 50,
-        backgroundColor: appColors.Green,
+        backgroundColor: appColors.White,
         flex: 6,
         alignItems: 'center'
     },
     title: {
         fontSize: 30,
         textAlign: 'center',
-        color: appColors.Yellow,
+        color: appColors.DarkBlue,
         fontFamily: 'VarelaRound_400Regular',
         flex: 5,
+        margin: 10
     },
     list: {
         height: 550,
+        marginTop: 30
     },
     listItem: {
         alignItems: 'center',
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
         width: 150,
     },
     listTitle: {
-        color: appColors.Yellow,
+        color: appColors.White,
         fontSize: 17,
         fontFamily: 'VarelaRound_400Regular',
         textAlign: 'center'

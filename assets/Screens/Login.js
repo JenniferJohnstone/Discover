@@ -81,17 +81,17 @@ function Login({ navigation }) {
 
                         <View style={styles.underline}>
                             <MaterialCommunityIcons name="email" size={20} color={AppColors.Blue} style={{ paddingTop: 30 }} />
-                            <TextInput placeholder="Email" style={styles.input} value={values.email} onChangeText={handleChange("email")} keyboardType="email-address" textContentType="emailAddress" ></TextInput>
+                            <TextInput placeholder="Email" placeholderTextColor={AppColors.Blue} style={styles.input} value={values.email} onChangeText={handleChange("email")} keyboardType="email-address" textContentType="emailAddress" ></TextInput>
                         </View>
                         <AppText>{errors.email}</AppText>
                         <View style={styles.underline}>
                             <MaterialCommunityIcons name="lock" size={20} color={AppColors.Blue} style={{ paddingTop: 30 }} />
-                            <TextInput placeholder="Password" style={styles.input} value={values.password} onChangeText={handleChange("password")} textContentType="password"></TextInput>
+                            <TextInput placeholder="Password" placeholderTextColor={AppColors.Blue} style={styles.input} value={values.password} onChangeText={handleChange("password")} textContentType="password"></TextInput>
                         </View>
                         <AppText>{errors.password}</AppText>
 
 
-                        <AppButton title='login' style={{ flexDirection: 'row', width: 200, marginTop: 20 }} BackgroundColor="Orange" color="Blue" onPress={handleSubmit} />
+                        <AppButton title='login' style={{ flexDirection: 'row', width: 200, marginTop: 20, padding: 10 }} BackgroundColor="Blue" color="White" onPress={handleSubmit} />
 
                     </>
                 )}
@@ -103,7 +103,7 @@ function Login({ navigation }) {
             <AppText style={styles.password}>Forgot Password?</AppText>
 
             <AppText style={styles.registration}>Don't have an account yet?</AppText>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}><AppText style={[styles.password, { fontSize: 15, paddingTop: 5 }]}>Sign Up</AppText></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}><AppText style={[styles.password, { color: AppColors.Blue, fontWeight: 'bold', fontSize: 15, paddingTop: 5 }]}>Sign Up</AppText></TouchableOpacity>
 
 
 
@@ -118,12 +118,12 @@ const styles = StyleSheet.create({
     },
     screen: {
         alignItems: 'center',
-        backgroundColor: AppColors.Green,
+        backgroundColor: AppColors.White,
     },
     input: {
         width: 200,
         textAlign: 'center',
-        color: AppColors.Yellow,
+        color: AppColors.Blue,
         fontSize: 20,
         fontFamily: 'VarelaRound_400Regular',
         padding: 10,
@@ -132,19 +132,20 @@ const styles = StyleSheet.create({
     },
     underline: {
         borderBottomWidth: 2,
-        borderBottomColor: AppColors.Orange,
+        borderBottomColor: AppColors.Blue,
         flexDirection: 'row',
     },
     password: {
-        color: AppColors.DarkRed,
+        color: AppColors.Green,
         fontSize: 18,
         fontFamily: 'VarelaRound_400Regular',
-        paddingTop: 25
+        paddingTop: 10
     },
     registration: {
-        color: AppColors.Yellow,
+        color: AppColors.Blue,
+        fontWeight: 400,
         fontSize: 15,
-        paddingTop: 50,
+        paddingTop: 20,
     }
 })
 

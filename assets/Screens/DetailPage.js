@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/varela-round'
+
 
 import AppView from '../Componants/AppView'
 import AppText from '../Componants/AppText'
@@ -40,11 +42,20 @@ function DetailPage({ navigation, route }) {
             { text: 'no' }])
     }
 
+
+    let [fonts_loaded] = useFonts({
+        VarelaRound_400Regular,
+    })
+
+    if (!fonts_loaded) {
+        return <AppText> App Loading </AppText>
+    }
+
     return (
         <AppView style={styles.screen}>
 
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <MaterialCommunityIcons name="arrow-left" size={20} color={appColors.DarkRed} style={styles.icon} />
+                <MaterialCommunityIcons name="arrow-left" size={50} color={appColors.DarkBlue} style={styles.icon} />
             </TouchableOpacity>
 
             <View style={{ flexDirection: 'row' }}>
@@ -56,8 +67,8 @@ function DetailPage({ navigation, route }) {
             <View style={styles.textBody}>
                 <AppText style={styles.bio}>{item.description}</AppText>
                 <AppView style={{ alignItems: 'center' }}>
-                    <AppText style={{ fontSize: 18, color: appColors.Red }}>Address:</AppText>
-                    <AppText style={{ fontSize: 15 }}>{item.address}</AppText>
+                    <AppText style={[styles.address, { fontSize: 18, color: appColors.White, fontWeight: 'bold' }]}>Address:</AppText>
+                    <AppText style={styles.address}>{item.address}</AppText>
                 </AppView>
 
             </View>
@@ -78,40 +89,47 @@ function DetailPage({ navigation, route }) {
 const styles = StyleSheet.create({
     screen: {
         flex: 6,
-        backgroundColor: appColors.Green,
+        backgroundColor: appColors.White,
         paddingTop: 50,
         alignItems: 'center'
     },
     title: {
-        color: appColors.Yellow,
+        color: appColors.DarkBlue,
         fontSize: 35,
         marginBottom: 5,
         paddingLeft: 5,
+        fontFamily: 'VarelaRound_400Regular',
+
     },
     image: {
         width: 300,
         height: 170
     },
     bio: {
+        color: appColors.White,
         fontSize: 22,
         width: 300,
         textAlign: 'center',
         padding: 10,
+        fontFamily: 'VarelaRound_400Regular',
+
     },
     row: {
         flexDirection: 'row',
         marginTop: 20
     },
     textBody: {
-        backgroundColor: appColors.Yellow,
+        backgroundColor: appColors.Blue,
         color: appColors.DarkRed,
         height: 200,
         marginTop: 20
     },
     country: {
-        color: appColors.DarkRed,
+        color: appColors.Blue,
         marginBottom: 10,
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'VarelaRound_400Regular',
+
 
     },
     edit: {
@@ -122,6 +140,13 @@ const styles = StyleSheet.create({
     },
     icon: {
         padding: 10,
+    },
+    address: {
+        fontSize: 15,
+        fontFamily: 'VarelaRound_400Regular',
+        color: appColors.White,
+        paddingTop: 15
+
     }
 })
 
