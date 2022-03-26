@@ -25,8 +25,6 @@ function FilteredList({ navigation, route }) {
         return commonData.getPlaceList()
 
     }
-
-    //let's try filtering this place  list to see if it contains the newly added location, maybe try doing it at back end too
     const places = getPlaces()
 
     var placeList = places.filter(place => {
@@ -135,6 +133,16 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(0,0,0,.6)',
         justifyContent: 'center',
+    },
+    noListings: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    noListingTitle: {
+        fontSize: 20,
+        width: 300,
+        textAlign: 'center',
+        color: appColors.White
     }
 })
 

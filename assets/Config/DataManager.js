@@ -180,6 +180,7 @@ export default class DataManager {
         const searchIndex = this.placeList.findIndex((place) => place.id == id);
         return this.placeList[searchIndex]
     }
+    //filters the placelist array for the one containing the id 
 
     //filters the placelist array for the one containing the id 
 

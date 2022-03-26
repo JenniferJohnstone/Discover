@@ -52,10 +52,11 @@ function AddPlace({ navigation }) {
                         title: '', country: '', description: '', address: '', image: selectedImage, category: selectedCategory,
                     }}
                     onSubmit={(values, { resetForm }) => {
-                        if (selectedImage == null) {
-                            alert('please select an image before submitting')
+                        console.log('something wrong', values.title)
+                        if (selectedImage == null || values.title == '' || values.country == '' || values.description == '' || values.address == '') {
+                            alert('please fill in all required fields before submitting')
+                            // note to self, you need to update your delpoyed app
                         } else {
-
                             values.image = selectedImage
                             values.id = String(Math.random())
                             values.category = selectedCategory

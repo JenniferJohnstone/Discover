@@ -32,6 +32,7 @@ function DetailPage({ navigation, route }) {
 
 
     const submitEdit = (id, newItem) => {
+        console.log('hello?')
         let commonData = DataManager.getInstance();
         newItem.id = item.id
         newItem.image = selectedImage
@@ -100,6 +101,7 @@ function DetailPage({ navigation, route }) {
                 <Formik
                     initialValues={{ title: item.title, country: item.country, description: item.description, address: item.address }}
                     onSubmit={(values) => {
+                        console.log('is this working?')
                         submitEdit(item.id, values)
                     }}
                     validationSchema={schema}

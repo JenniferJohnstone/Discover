@@ -110,8 +110,7 @@ function myWishList({ route, navigation }) {
                     refreshing={isFetching}
                 />
 
-                <AppText>Currently fixing a bug, please refresh (by swiping down) this list (possibly multiple times) after making changes.
-                </AppText>
+                <AppText style={{ textAlign: 'center' }}>Please refresh (by swiping down) after making changes.</AppText>
 
             </AppView>
 
